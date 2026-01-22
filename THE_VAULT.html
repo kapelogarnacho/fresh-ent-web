@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresh Entertainment | SECURE VAULT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #050505;
+      --card-bg: #111;
+      --text: #fff;
+      --neon-cyan: #00f3ff;
+      --neon-pink: #ff0055;
+      --neon-yellow: #ffff00;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .vault-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.9);
+      border-bottom: 2px solid var(--neon-cyan);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 1000;
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: #888;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border: 1px solid transparent;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff;
+      border: 1px solid var(--neon-yellow);
+      background: linear-gradient(45deg, rgba(0, 243, 255, 0.2), transparent);
+      box-shadow: 0 0 15px var(--neon-cyan);
+      transform: skew(-10deg);
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 15px;
+      color: var(--neon-pink);
+      font-weight: 900;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    .vault-container {
+      max-width: 1400px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .article-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid #333;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card:hover {
+      transform: scale(1.05) translateY(-10px);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+      z-index: 10;
+    }
+
+    .card-img {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .category-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--neon-pink);
+      color: white;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .card-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      margin: 0 0 10px 0;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+    }
+
+    .card-excerpt {
+      font-size: 0.9rem;
+      color: #ccc;
+      flex: 1;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
+
+    .read-btn {
+      background: transparent;
+      border: 1px solid var(--neon-yellow);
+      color: var(--neon-yellow);
+      padding: 10px;
+      width: 100%;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .read-btn:hover {
+      background: var(--neon-yellow);
+      color: black;
+      box-shadow: 0 0 20px var(--neon-yellow);
+    }
+
+    .reader-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 2000;
+      display: none;
+      overflow-y: auto;
+      animation: fadeIn 0.5s;
+    }
+
+    .reader-content {
+      max-width: 800px;
+      margin: 50px auto;
+      background: #111;
+      padding: 60px;
+      border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
+      position: relative;
+    }
+
+    .close-reader {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 3rem;
+      color: var(--neon-pink);
+      cursor: pointer;
+      z-index: 2001;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="vault-nav">
+    <a href="dashboard.html" class="back-btn">❮ EXIT VAULT</a>
+    <a class="nav-link active" onclick="filterArticles('all', this)">All Files</a>
+    <a class="nav-link" onclick="filterArticles('tech', this)">Tech & Cyber</a>
+    <a class="nav-link" onclick="filterArticles('culture', this)">Culture & Hype</a>
+    <a class="nav-link" onclick="filterArticles('music', this)">Music Theory</a>
+    <a class="nav-link" onclick="filterArticles('mystery', this)">The Unknown</a>
+  </nav>
+
+  <div class="vault-container" id="vaultGrid"></div>
+
+  <div class="reader-modal" id="readerModal">
+    <span class="close-reader" onclick="closeReader()">&times;</span>
+    <div class="reader-content" id="readerText"></div>
+  </div>
+
+  <script>
+    const articles = [
+      { id: 1, cat: 'tech', title: "The Rise of AI DJs", img: "https://images.unsplash.com/photo-1592478411213-61535fdd28f2", text: "Artificial Intelligence is no longer just organizing playlists; it's creating them live..." },
+      { id: 2, cat: 'tech', title: "Neural Link Gaming", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b", text: "Controllers are obsolete. The new wave of gaming involves direct neural feedback..." },
+      { id: 6, cat: 'culture', title: "Streetwear Rebellion", img: "https://images.unsplash.com/photo-1523396864751-c3b229eef443", text: "The underground scene is rejecting logos. The new flex is 'Anti-Brand'..." },
+      { id: 16, cat: 'mystery', title: "The Signal", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa", text: "Amateur radio operators picked up a broadcast from deep space..." },
+    ];
+    const grid = document.getElementById('vaultGrid');
+    const modal = document.getElementById('readerModal');
+    const readerText = document.getElementById('readerText');
+
+    function renderCards(filter = 'all') {
+      grid.innerHTML = '';
+      articles.forEach(art => {
+        if (filter === 'all' || art.cat === filter) {
+          const card = document.createElement('div');
+          card.className = 'article-card';
+          card.innerHTML = `<div class="card-img" style="background-image: url('${art.img}')"><span class="category-tag">${art.cat.toUpperCase()}</span></div><div class="card-content"><h3 class="card-title">${art.title}</h3><p class="card-excerpt">${art.text}</p><button class="read-btn" onclick="openReader(${art.id})">ACCESS FILE</button></div>`;
+          grid.appendChild(card);
+        }
+      });
+    }
+
+    function filterArticles(cat, btn) { document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); if (btn) btn.classList.add('active'); renderCards(cat); }
+    function openReader(id) { const art = articles.find(a => a.id === id); readerText.innerHTML = `<h1 style="color: var(--neon-cyan); font-size: 3rem; margin-bottom: 20px;">${art.title}</h1><img src="${art.img}" style="width:100%; max-height: 400px; object-fit:cover; border-radius:10px; border:1px solid #333; margin-bottom:30px;"><p style="font-size: 1.2rem; line-height: 1.8; color: #ddd;">${art.text}<br><br><strong style="color:var(--neon-pink)">[ENCRYPTED SECTION DECODED]</strong><br>${art.text}<br><em style="color:#888">// END OF TRANSMISSION //</em></p>`; modal.style.display = 'block'; }
+    function closeReader() { modal.style.display = 'none'; }
+
+    renderCards();
+    const user = localStorage.getItem('freshUser');
+    if (!user) { alert("SECURE AREA. PLEASE LOG IN AT MAIN TERMINAL."); window.location.href = 'index.html'; }
+  </script>
+</body>
+
+</html>

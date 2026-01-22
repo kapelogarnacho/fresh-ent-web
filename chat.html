@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresh Entertainment | DASHBOARD</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="scanline-overlay"></div>
+  <div id="party-effects-container"></div>
+
+  <div class="party-switch-container">
+    <button onclick="toggleParty()" id="party-btn" class="cyber-switch">
+      <i class="fa-solid fa-bolt"></i> PARTY MODE
+    </button>
+  </div>
+
+  <header id="home">
+    <div class="logo-container">
+      <span class="fresh">FRESH</span> <span class="ent">DASHBOARD</span>
+    </div>
+    <div id="user-profile-modal" class="profile-modal">
+      <div class="profile-card">
+        <span class="close-profile" onclick="toggleProfile()">×</span>
+        <div class="profile-header">
+          <img id="p-img" src="https://i.pravatar.cc/150?u=fresh" alt="User">
+          <h2 id="p-name">Guest</h2>
+          <div class="rank-badge" id="p-rank">ROOKIE</div>
+        </div>
+        <div class="profile-stats">
+          <div><strong id="p-points">0</strong><span>Points</span></div>
+          <div><strong>12</strong><span>Friends</span></div>
+          <div><strong>45</strong><span>Likes</span></div>
+        </div>
+        <div class="profile-actions">
+          <button onclick="editProfile()">Edit Details</button>
+          <button onclick="addFriend()">Add Friend</button>
+          <button onclick="likeUser()">Give Like ❤️</button>
+        </div>
+        <div class="profile-bio">
+          <h3>About Me</h3>
+          <p id="p-bio" contenteditable="false">Just here for the Fresh vibes. Music lover and gamer.</p>
+        </div>
+      </div>
+    </div>
+    <i class="fa-solid fa-user user-icon" title="Profile" onclick="toggleProfile()"></i>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="news.html">News Portal</a>
+    <a href="music.html">Music Hub</a>
+    <a href="arcade.html">Arcade</a>
+    <a href="globe.html">Globe</a>
+  </nav>
+
+  <div class="news-banner" id="news">
+    <div class="news-content">
+      *** HOT DEAL: 50% OFF ALL MOVIE TICKETS THIS WEEKEND! *** NEW ALBUM DROPS FRIDAY! *** JOIN THE GAMING TOURNAMENT
+      NOW - CASH PRIZES! *** FRESH ENTERTAINMENT EXCLUSIVE: BEHIND THE SCENES ACCESS! ***
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="main-grid">
+      <div class="system-links">
+        <div class="system-card" onclick="openSection('chatroom')">
+          <i class="fa-solid fa-comments icon-glow-cyan"></i>
+          <h3>Chat Room</h3>
+          <p>Connect with friends instantly.</p>
+        </div>
+
+        <div class="image-section">
+          <a href="globe.html">
+            <img
+              src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+              alt="THE MEME GLOBE">
+          </a>
+          <div class="globe-text">
+            <h3>WELCOME TO THE GLOBE</h3>
+            <p>Join thousands, if not millions, for fun times, laughs, people, and places.</p>
+          </div>
+        </div>
+
+        <div class="system-card" onclick="location.href='arcade.html'">
+          <i class=" fa-solid fa-gamepad icon-glow-yellow"></i>
+          <h3>Games Arcade</h3>
+          <p>Play simple fun games now.</p>
+        </div>
+        <div class="system-card" onclick="location.href='music.html';">
+          <i class="fa-solid fa-music icon-glow-pink"></i>
+          <h3>Music Hub</h3>
+          <p>Upload and listen to your beats.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="chatroom" class="app-section">
+      <h2>Chat Room</h2>
+      <div class="chat-box" id="chat-display"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="handleEnter(event, sendMessage)">
+        <button onclick="sendMessage()" class="game-btn" style="margin-top:10px;">Send</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="games-grid">
+      <div class="system-card ttt-card">
+        <h3 style="color: #00FFFF;">NEON TIC-TAC-TOE</h3>
+        <p id="ttt-score" style="color: #ffff00; font-weight:bold; margin: 5px 0;">X: 0 | O: 0</p>
+        <div id="ttt-board"></div>
+        <button onclick="resetTTT()" class="submit-btn small-btn">RESET BOARD</button>
+      </div>
+
+      <div class="vault-wrapper">
+        <div class="vault-interface" id="vault-panel">
+          <div class="scanner-line"></div>
+          <h2 class="vault-title" id="vault-text">🔒 SECURE CORE</h2>
+          <p class="vault-hint">// ENTER USERNAME TO ACCESS //</p>
+          <form onsubmit="enterVault(event)">
+            <input type="text" id="vault-key" class="vault-input" placeholder="IDENTITY VERIFICATION" required
+              autocomplete="off">
+            <button type="submit" class="vault-btn" id="vault-btn">AUTHORIZE BREACH</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="system-card jump-card">
+        <h3 style="color: #00FFFF;">NEON JUMP</h3>
+        <div id="game-container">
+          <div id="player"></div>
+          <div id="obstacle"></div>
+        </div>
+        <p id="jump-score" style="color:#00FFFF">Score: 0</p>
+        <button onclick="startJumpGame()" class="submit-btn small-btn">START</button>
+      </div>
+    </div>
+
+    <div class="video-section-wrapper">
+      <div class="video-welcome-header">
+        <h2 class="glitch-text" data-text="WELCOME TO THE SHOW">WELCOME TO THE SHOW</h2>
+      </div>
+      <div class="video-container">
+        <video width="100%" height="auto" controls>
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-abstract-video-of-a-man-with-headphones-dancing-33875-large.mp4"
+            type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <div class="content-breach-section">
+      <div class="tiktok-vault">
+        <div class="video-feed" id="main-feed">
+          <div class="feed-item">
+            <video src="https://assets.mixkit.co/videos/preview/mixkit-party-crowd-silhouette-941-large.mp4" loop muted
+              onclick="this.paused ? this.play() : this.pause()"></video>
+            <p class="vid-caption">@FreshEnt_Official #Welcome</p>
+          </div>
+        </div>
+        <div class="upload-overlay">
+          <label for="vid-upload" class="upload-circle">
+            <i class="fa-solid fa-plus"></i>
+          </label>
+          <input type="file" id="vid-upload" accept="video/*" style="display:none;" onchange="uploadToFeed(this)">
+        </div>
+      </div>
+
+      <div class="movie-scroller-area" id="movies">
+        <h3 class="section-title-yellow" style="color: #FFFF00;">🔥 TRENDING MOVIES</h3>
+        <div class="scroll-row">
+          <div class="scroll-track">
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe></div>
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/jfKfPfyJRdk"></iframe></div>
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe></div>
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/jfKfPfyJRdk"></iframe></div>
+          </div>
+        </div>
+
+        <h3 class="section-title-cyan" style="color: #00FFFF;">🎵 LATEST BEATS</h3>
+        <div class="scroll-row">
+          <div class="scroll-track reverse-track">
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/5qap5aO4i9A"></iframe></div>
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/CCx0q4251iM"></iframe></div>
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/5qap5aO4i9A"></iframe></div>
+            <div class="yt-card"><iframe src="https://www.youtube.com/embed/CCx0q4251iM"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modern-split-section">
+      <div class="reviews-container mirror-tubes">
+        <h2 class="section-header-glow-cyan">DAILY REVIEWS</h2>
+        <div class="review-input-zone">
+          <p style="color: #ccc; font-size: 0.8rem; margin-bottom: 5px;">VIP SECTION / SHARE YOUR EXPERIENCE</p>
+          <textarea id="rev-text" placeholder="Tell us how fresh it is..."
+            onkeypress="handleEnter(event, postReview)"></textarea>
+          <button onclick="postReview()" class="rev-submit">BROADCAST TO MIRROR</button>
+        </div>
+        <div class="mirror-display-zone" id="mirror-surface">
+          <div id="reviews-display" class="reviews-list">
+            <div class="review-card">
+              <strong style="color:#00FFFF;">Alpha_User:</strong>
+              <p>The VIP experience here is unlike anything else. The glitch UI is fire! 🔥</p>
+            </div>
+          </div>
+          <div id="party-emojis"></div>
+        </div>
+      </div>
+
+      <div class="events-container portal-glow shortened-box">
+        <h2 class="section-header-glow-cyan">EVENTS NEAR ME</h2>
+        <div class="events-wrapper" style="position:relative;">
+          <button class="scroll-btn left" onclick="scrollEvents(-1)">❮</button>
+          <div class="events-slider" id="event-slider">
+            <div class="event-circle-frame"><img src="https://picsum.photos/100/100?random=1" alt="Party"><span>NEON
+                RAVE</span></div>
+            <div class="event-circle-frame"><img src="https://picsum.photos/100/100?random=2" alt="Concert"><span>LIVE
+                BEATS</span></div>
+            <div class="event-circle-frame"><img src="https://picsum.photos/100/100?random=3" alt="Meetup"><span>GLOBE
+                MEET</span></div>
+            <div class="event-circle-frame"><img src="https://picsum.photos/100/100?random=4" alt="VIP"><span>SECRET
+                VJ</span></div>
+          </div>
+          <button class="scroll-btn right" onclick="scrollEvents(1)">❯</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="social-vip-grid">
+      <div class="stories-vault portal-style-fill">
+        <h2 class="sexy-title">🔥 FRESH STORIES</h2>
+        <div class="stories-scroll-box" id="user-stories">
+          <div class="story-item">
+            <div class="story-circle active-glow"><img src="https://i.pravatar.cc/150?u=fresh" alt="User">
+              <div class="add-story-plus">+</div>
+            </div>
+            <div class="story-info">
+              <p class="story-user">You</p>
+              <p class="story-time">Add New</p>
+            </div>
+          </div>
+          <div class="story-item">
+            <div class="story-circle"><img src="https://i.pravatar.cc/150?u=10"></div>
+            <div class="story-info">
+              <p class="story-user">Mike_T</p>
+              <p class="story-time">2m ago</p>
+            </div>
+          </div>
+          <div class="story-item">
+            <div class="story-circle"><img src="https://i.pravatar.cc/150?u=11"></div>
+            <div class="story-info">
+              <p class="story-user">Sarah_J</p>
+              <p class="story-time">15m ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vip-leaderboard portal-style-fill">
+        <header class="vip-header"><i class="fa-solid fa-crown"></i> TOP ELITE <i class="fa-solid fa-crown"></i>
+        </header>
+        <div class="leaderboard-list scrollable-ranks">
+          <div class="rank-item rank-1">
+            <div class="rank-badge-ultra">1</div><img src="https://i.pravatar.cc/150?u=1" class="rank-img">
+            <div class="rank-info"><span class="rank-name">CyberKing</span><span class="rank-tag">SUPREME</span></div>
+            <div class="reward-crown">👑</div>
+          </div>
+          <div class="rank-item rank-2">
+            <div class="rank-badge">2</div><img src="https://i.pravatar.cc/150?u=2" class="rank-img">
+            <div class="rank-info"><span class="rank-name">NeonQueen</span><span class="rank-tag">ELITE</span></div>
+            <div class="reward-gold-bar-realistic">GOLD</div>
+          </div>
+          <div class="rank-item rank-3">
+            <div class="rank-badge">3</div><img src="https://i.pravatar.cc/150?u=3" class="rank-img">
+            <div class="rank-info"><span class="rank-name">VJ_Master</span><span class="rank-tag">DIAMOND</span></div>
+            <div class="reward-diamond-realistic">💎</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="echo-cursor-canvas"></canvas>
+    <div id="shop-promo-popup">✨ FRESH DROP DETECTED ✨</div>
+
+    <section id="shopping-viewport">
+      <div id="shopping-container">
+        <h2 class="shop-title">SHOP!NG</h2>
+        <div class="shop-grid">
+          <div class="shop-card">
+            <div class="product-visual">👕</div>
+            <h3>Fresh Ent Jersey</h3>
+            <p class="price">$45.00</p><button class="shopping-btn">SHOP!NG</button>
+          </div>
+          <div class="shop-card">
+            <div class="product-visual">🧢</div>
+            <h3>Neon Snapback</h3>
+            <p class="price">$30.00</p><button class="shopping-btn">SHOP!NG</button>
+          </div>
+          <div class="shop-card">
+            <div class="product-visual">🎟️</div>
+            <h3>All-Access Pass</h3>
+            <p class="price">$120.00</p><button class="shopping-btn">SHOP!NG</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="shop-header-ui">
+      <div class="cart-wrapper">
+        <span class="cart-label" style="color:white; font-weight:bold;">FRESH CART</span>
+        <div id="cart-counter">0</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Inline script for shop scroll effect specifically for this file
+    window.addEventListener('scroll', () => {
+      const viewport = document.getElementById('shopping-viewport');
+      const box = document.getElementById('shopping-container');
+      const grid = document.querySelector('.shop-grid');
+      const canvas = document.getElementById('echo-cursor-canvas');
+      if (!viewport || !box) return;
+
+      const rect = viewport.getBoundingClientRect();
+      let progress = Math.min(Math.max(-rect.top / (window.innerHeight * 1.5), 0), 1);
+      const currentWidth = 80 + (20 * progress);
+      const currentHeight = 300 + ((window.innerHeight * 0.8 - 100) * progress);
+      box.style.setProperty('--box-width', `${currentWidth}%`);
+      box.style.setProperty('--box-height', `${currentHeight}px`);
+      box.style.width = `${currentWidth}%`;
+      box.style.height = `${currentHeight}px`;
+
+      if (grid) grid.style.opacity = progress > 0.3 ? "1" : "0";
+      if (canvas) canvas.style.opacity = (rect.top < window.innerHeight && rect.bottom > 0) ? "1" : "0";
+    });
+
+    // Splatter logic
+    document.querySelectorAll('.shopping-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const counter = document.getElementById('cart-counter');
+        if (counter) counter.innerText = parseInt(counter.innerText) + 1;
+        // Splatter effect logic included in script.js but trigger here
+      });
+    });
+  </script>
+</body>
+
+</html>

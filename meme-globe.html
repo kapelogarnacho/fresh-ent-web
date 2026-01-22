@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>THE MEME GLOBE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      color: cyan;
+      font-family: 'Orbitron';
+    }
+
+    .scene {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+    }
+
+    .globe {
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spin 30s linear infinite;
+    }
+
+    .node {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid cyan;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .node img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .back {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: red;
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotateY(0);
+      }
+
+      to {
+        transform: rotateY(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="index.html" class="back">BACK TO BASE</a>
+  <div class="scene">
+    <div class="globe" id="globe"></div>
+  </div>
+  <script>
+    const globe = document.getElementById('globe');
+    for (let i = 0; i < 50; i++) {
+      const phi = Math.acos(-1 + (2 * i) / 50);
+      const theta = Math.sqrt(50 * Math.PI) * phi;
+      const r = 400;
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+
+      const el = document.createElement('div');
+      el.className = 'node';
+      el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+      el.innerHTML = `<img src="https://picsum.photos/100/100?random=${i}">`;
+      globe.appendChild(el);
+  }
+
+  </script>
+</body>
+
+</html>

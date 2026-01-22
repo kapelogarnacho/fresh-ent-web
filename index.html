@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresh Entertainment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="scanline-overlay"></div>
+  <div id="party-effects-container"></div>
+
+  <div class="party-switch-container">
+    <button onclick="toggleParty()" id="party-btn" class="cyber-switch">
+      <i class="fa-solid fa-bolt"></i> PARTY MODE
+    </button>
+  </div>
+
+  <header id="home">
+    <div class="logo-container">
+      <span class="fresh">FRESH</span> <span class="ent">ENTERTAINMENT</span>
+    </div>
+    <div id="user-profile-modal" class="profile-modal">
+      <div class="profile-card">
+        <span class="close-profile" onclick="toggleProfile()">×</span>
+        <div class="profile-header">
+          <img id="p-img" src="https://i.pravatar.cc/150?u=fresh" alt="User">
+          <h2 id="p-name">Guest</h2>
+          <div class="rank-badge" id="p-rank">ROOKIE</div>
+        </div>
+        <div class="profile-stats">
+          <div><strong id="p-points">0</strong><span>Points</span></div>
+          <div><strong>12</strong><span>Friends</span></div>
+          <div><strong>45</strong><span>Likes</span></div>
+        </div>
+        <div class="profile-actions">
+          <button onclick="editProfile()">Edit Details</button>
+          <button onclick="addFriend()">Add Friend</button>
+          <button onclick="likeUser()">Give Like ❤️</button>
+        </div>
+        <div class="profile-bio">
+          <h3>About Me</h3>
+          <p id="p-bio" contenteditable="false">Just here for the Fresh vibes. Music lover and gamer.</p>
+        </div>
+      </div>
+    </div>
+    <i class="fa-solid fa-user user-icon" title="Register / Profile" onclick="scrollToRegister()"></i>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#movies">Movies</a>
+    <a href="#music">Music</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <div class="news-banner" id="news">
+    <div class="news-content">
+      *** HOT DEAL: 50% OFF ALL MOVIE TICKETS THIS WEEKEND! *** NEW ALBUM DROPS FRIDAY! *** JOIN THE GAMING TOURNAMENT
+      NOW - CASH PRIZES! *** FRESH ENTERTAINMENT EXCLUSIVE: BEHIND THE SCENES ACCESS! ***
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="main-grid">
+      <div class="form-container" id="contact">
+        <h2>JOIN THE CLUB</h2>
+        <form id="joinForm" onsubmit="registerUser(event)">
+          <div class="form-group">
+            <input type="text" id="username-signup" placeholder="Username (This will be your Vault Key)" required>
+          </div>
+
+          <div class="form-group form-row">
+            <input type="email" placeholder="Email Address" style="flex-grow: 1;" required>
+            <input type="number" id="age-input" placeholder="Age" min="1" max="100">
+          </div>
+          <div class="form-group">
+            <input type="text" id="Country" placeholder="country" required>
+          </div>
+          <div class="form-group">
+            <textarea id="comment-input" placeholder="Write your comments here..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">submit registration</button>
+        </form>
+      </div>
+
+      <div class="image-section">
+        <a href="meme-globe.html">
+          <img src="c:\Users\hp\Desktop\vdj\New folder (3)\THE MEME GLOBE.jpg" alt="THE MEME GLOBE"
+            onerror="this.src='https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80'">
+        </a>
+        <div class="globe-text">
+          <h3>WELCOME TO THE GLOBE</h3>
+          <p>
+            "I saw that meme, huh! So this is that meme everyone is talking about?" YES!
+            This is the entertainment studio everyone is talking about.
+            Join thousands, if not millions, for fun times, laughs, people, and places.
+            <br><br>
+            <strong class="highlight-text">FRESH ENTERTAINMENT STUDIOS</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="system-links">
+        <div class="system-card" onclick="location.href='chat.html'">
+          <i class="fa-solid fa-comments icon-glow-cyan"></i>
+          <h3>Chat Room</h3>
+          <p>Connect with friends instantly.</p>
+        </div>
+        <div class="system-card" onclick="location.href='games.html'">
+          <i class=" fa-solid fa-gamepad icon-glow-yellow"></i>
+          <h3>Games Arcade</h3>
+          <p>Play simple fun games now.</p>
+        </div>
+        <div class="system-card" onclick="location.href='music.html';">
+          <i class="fa-solid fa-music icon-glow-pink"></i>
+          <h3>Music Hub</h3>
+          <p>Upload and listen to your beats.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="chatroom" class="app-section">
+      <h2>Chat Room</h2>
+      <div class="chat-box" id="chat-display"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="handleEnter(event, sendMessage)">
+        <button onclick="sendMessage()" class="game-btn">Send</button>
+      </div>
+    </div>
+
+    <div id="games" class="app-section">
+      <div class="game-area">
+        <h2>Clicker Game</h2>
+        <p style="font-size: 2rem;">Score: <span id="score">0</span></p>
+        <button class="game-btn" onclick="increaseScore()">CLICK ME!</button>
+      </div>
+    </div>
+
+    <div id="music-section" class="app-section">
+      <h2>Music Hub</h2>
+      <input type="file" accept="audio/*" onchange="playMusic(this)" style="color:white;">
+      <div id="music-player-area"></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="games-grid">
+
+      <div class="games-grid">
+        <div class="system-card ttt-card">
+          <h3 style="color: #00FFFF;">NEON TIC-TAC-TOE</h3>
+          <p id="ttt-score" style="color: #ffff00; font-weight:bold; margin: 5px 0;">X: 0 | O: 0</p>
+          <div id="ttt-board"></div>
+          <button onclick="resetTTT()" class="submit-btn small-btn">RESET BOARD</button>
+        </div>
+        <div class="vault-wrapper" onclick="location.href='THE_VAULT .html'">
+          <div class="vault-interface" id="vault-panel">
+            <div class="scanner-line"></div>
+            <h2 class="vault-title" id="vault-text">🔒 SECURE CORE</h2>
+            <p class="vault-hint">// ENTER USERNAME TO ACCESS //</p>
+            <form onsubmit="enterVault(event)">
+              <input type="text" id="vault-key" class="vault-input" placeholder="IDENTITY VERIFICATION" required
+                autocomplete="off">
+              <button type="submit" class="vault-btn" id="vault-btn">AUTHORIZE BREACH</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="system-card jump-card">
+          <h3 style="color: #00FFFF;">NEON JUMP</h3>
+          <div id="game-container">
+            <div id="player"></div>
+            <div id="obstacle"></div>
+          </div>
+          <p id="jump-score" style="color:#00FFFF">Score: 0</p>
+          <button onclick="startJumpGame()" class="submit-btn small-btn">START</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="video-section-wrapper">
+      <div class="video-welcome-header">
+        <h2 class="glitch-text" data-text="WELCOME TO THE SHOW">WELCOME TO THE SHOW</h2>
+      </div>
+      <div class="video-container">
+        <video width="100%" height="auto" controls>
+          <source src="c:\Users\hp\Desktop\vdj\New folder (3)\0108 (1).mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-breach-section">
+
+        <div class="about-left">
+          <h3>WHY CHOOSE US</h3>
+          <p>
+            At Fresh Entertainment, we are dedicated to providing a comprehensive entertainment experience.
+            <br><br>
+            Watch the latest movies, listen to favorite music, or connect with friends. Join our vibrant community
+            today!
+          </p>
+        </div>
+
+        <div class="tiktok-vault">
+          <div class="video-feed" id="main-feed">
+            <div class="feed-item">
+              <video src="https://assets.mixkit.co/videos/preview/mixkit-party-crowd-silhouette-941-large.mp4" loop
+                muted onclick="this.paused ? this.play() : this.pause()"></video>
+              <p class="vid-caption">@FreshEnt_Official #Welcome</p>
+            </div>
+          </div>
+          <div class="upload-overlay">
+            <label for="vid-upload" class="upload-circle">
+              <i class="fa-solid fa-plus"></i>
+            </label>
+            <input type="file" id="vid-upload" accept="video/*" style="display:none;" onchange="uploadToFeed(this)">
+          </div>
+        </div>
+
+        <div class="movie-scroller-area" id="movies">
+          <h3 class="section-title-yellow">🔥 TRENDING MOVIES</h3>
+          <div class="scroll-row">
+            <div class="scroll-track">
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe></div>
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/jfKfPfyJRdk"></iframe></div>
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe></div>
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/jfKfPfyJRdk"></iframe></div>
+            </div>
+          </div>
+
+          <h3 class="section-title-cyan">🎵 LATEST BEATS</h3>
+          <div class="scroll-row">
+            <div class="scroll-track reverse-track">
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/5qap5aO4i9A"></iframe></div>
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/CCx0q4251iM"></iframe></div>
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/5qap5aO4i9A"></iframe></div>
+              <div class="yt-card"><iframe src="https://www.youtube.com/embed/CCx0q4251iM"></iframe></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modern-split-section">
+
+        <div class="reviews-container mirror-tubes">
+          <h2 class="section-header-glow-cyan">DAILY REVIEWS</h2>
+
+          <div class="review-input-zone">
+            <p style="color: #ccc; font-size: 0.8rem; margin-bottom: 5px;">VIP SECTION / SHARE YOUR EXPERIENCE</p>
+            <textarea id="rev-text" placeholder="Tell us how fresh it is..."
+              onkeypress="handleEnter(event, postReview)"></textarea>
+            <button onclick="postReview()" class="rev-submit">BROADCAST TO MIRROR</button>
+          </div>
+
+          <div class="mirror-display-zone" id="mirror-surface">
+            <div id="reviews-display" class="reviews-list">
+              <div class="review-card">
+                <strong style="color:#00FFFF;">Alpha_User:</strong>
+                <p>The VIP experience here is unlike anything else. The glitch UI is fire! 🔥</p>
+              </div>
+            </div>
+            <div id="party-emojis"></div>
+          </div>
+        </div>
+
+        <div class="events-container portal-glow shortened-box">
+          <h2 class="section-header-glow-cyan">EVENTS NEAR ME</h2>
+          <div class="events-wrapper">
+            <button class="scroll-btn left" onclick="scrollEvents(-1)">❮</button>
+            <div class="events-slider" id="event-slider">
+              <div class="event-circle-frame" onclick="selectEvent(this)">
+                <img src="c:\Users\hp\Desktop\vdj\New folder (3)\mine.jpeg" alt="Party">
+                <span>NEON RAVE</span>
+              </div>
+              <div class="event-circle-frame" onclick="selectEvent(this)">
+                <img src="c:\Users\hp\Desktop\vdj\New folder (3)\THE MEME GLOBE.jpg" alt="Concert">
+                <span>LIVE BEATS</span>
+              </div>
+              <div class="event-circle-frame" onclick="selectEvent(this)">
+                <img src="c:\Users\hp\Desktop\vdj\New folder (3)\mine.jpeg" alt="Party">
+                <span>NEON RAVE</span>
+              </div>
+              <div class="event-circle-frame" onclick="selectEvent(this)">
+                <img src="c:\Users\hp\Desktop\vdj\New folder (3)\THE MEME GLOBE.jpg" alt="Concert">
+                <span>LIVE BEATS</span>
+              </div>
+              <div class="event-circle-frame" onclick="selectEvent(this)">
+                <img src="c:\Users\hp\Desktop\vdj\New folder (3)\bmw-wallpaper-web-store.png" alt="Meetup">
+                <span>GLOBE MEET</span>
+              </div>
+              <div class="event-circle-frame" onclick="selectEvent(this)">
+                <img src="c:\Users\hp\Desktop\vdj\New folder (3)\mine.jpeg" alt="VIP">
+                <span>SECRET VJ</span>
+              </div>
+            </div>
+            <button class="scroll-btn right" onclick="scrollEvents(1)">❯</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-vip-grid">
+
+        <div class="stories-vault portal-style-fill">
+          <h2 class="sexy-title">🔥 FRESH STORIES</h2>
+          <div class="stories-scroll-box" id="user-stories">
+            <div class="story-item" onclick="viewStory('Admin')">
+              <div class="story-circle active-glow">
+                <img src="https://i.pravatar.cc/150?u=fresh" alt="User">
+                <div class="add-story-plus">+</div>
+              </div>
+              <div class="story-info">
+                <p class="story-user">You</p>
+                <p class="story-time">Add New</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-circle"><img src="https://i.pravatar.cc/150?u=10"></div>
+              <div class="story-info">
+                <p class="story-user">Mike_T</p>
+                <p class="story-time">2m ago</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-circle"><img src="https://i.pravatar.cc/150?u=11"></div>
+              <div class="story-info">
+                <p class="story-user">Sarah_J</p>
+                <p class="story-time">15m ago</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-circle"><img src="https://i.pravatar.cc/150?u=12"></div>
+              <div class="story-info">
+                <p class="story-user">Lo_Fi</p>
+                <p class="story-time">1h ago</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-circle"><img src="https://i.pravatar.cc/150?u=13"></div>
+              <div class="story-info">
+                <p class="story-user">BeatZ</p>
+                <p class="story-time">2h ago</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="story-circle"><img src="https://i.pravatar.cc/150?u=14"></div>
+              <div class="story-info">
+                <p class="story-user">RaveG</p>
+                <p class="story-time">3h ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vip-leaderboard portal-style-fill">
+          <header class="vip-header">
+            <i class="fa-solid fa-crown"></i> TOP 10 ELITE <i class="fa-solid fa-crown"></i>
+          </header>
+          <div class="leaderboard-list scrollable-ranks">
+
+            <a href="#profile-cyberking" class="rank-link">
+              <div class="rank-item rank-1">
+                <div class="rank-badge-ultra">1</div>
+                <img src="https://i.pravatar.cc/150?u=1" class="rank-img">
+                <div class="rank-info">
+                  <span class="rank-name">CyberKing</span>
+                  <span class="rank-tag">SUPREME</span>
+                </div>
+                <div class="reward-crown">👑</div>
+              </div>
+            </a>
+
+            <a href="#profile-queen" class="rank-link">
+              <div class="rank-item rank-2">
+                <div class="rank-badge">2</div>
+                <img src="https://i.pravatar.cc/150?u=2" class="rank-img">
+                <div class="rank-info">
+                  <span class="rank-name">NeonQueen</span>
+                  <span class="rank-tag">ELITE</span>
+                </div>
+                <div class="reward-gold-bar-realistic">GOLD</div>
+              </div>
+            </a>
+
+            <a href="#profile-vj" class="rank-link">
+              <div class="rank-item rank-3">
+                <div class="rank-badge">3</div>
+                <img src="https://i.pravatar.cc/150?u=3" class="rank-img">
+                <div class="rank-info">
+                  <span class="rank-name">VJ_Master</span>
+                  <span class="rank-tag">DIAMOND</span>
+                </div>
+                <div class="reward-diamond-realistic">💎</div>
+              </div>
+            </a>
+
+            <a href="#user4" class="rank-link">
+              <div class="rank-item rank-normal"><span class="star-rank">4</span> <img
+                  src="https://i.pravatar.cc/150?u=4" class="rank-img"> <span class="rank-name">User_Four</span> <i
+                  class="fa-solid fa-star mature-star"></i>
+              </div>
+            </a>
+            <a href="#user5" class="rank-link">
+              <div class="rank-item rank-normal"><span class="star-rank">5</span> <img
+                  src="https://i.pravatar.cc/150?u=5" class="rank-img"> <span class="rank-name">User_Five</span> <i
+                  class="fa-solid fa-star mature-star"></i>
+              </div>
+            </a>
+            <a href="#user6" class="rank-link">
+              <div class="rank-item rank-normal"><span class="star-rank">6</span> <img
+                  src="https://i.pravatar.cc/150?u=6" class="rank-img"> <span class="rank-name">User_Six</span> <i
+                  class="fa-solid fa-star mature-star"></i>
+              </div>
+            </a>
+            <a href="#user7" class="rank-link">
+              <div class="rank-item rank-normal"><span class="star-rank">7</span> <img
+                  src="https://i.pravatar.cc/150?u=7" class="rank-img"> <span class="rank-name">User_Seven</span> <i
+                  class="fa-solid fa-star mature-star"></i>
+              </div>
+            </a>
+            <a href="#user8" class="rank-link">
+              <div class="rank-item rank-normal"><span class="star-rank">8</span> <img
+                  src="https://i.pravatar.cc/150?u=8" class="rank-img"> <span class="rank-name">User_Eight</span> <i
+                  class="fa-solid fa-star mature-star"></i>
+              </div>
+            </a>
+            <a href="#user9" class="rank-link">
+              <div class="rank-item rank-normal"><span class="star-rank">9</span> <img
+                  src="https://i.pravatar.cc/150?u=9" class="rank-img"> <span class="rank-name">User_Nine</span> <i
+                  class="fa-solid fa-star mature-star"></i>
+              </div>
+            </a>
+            <a href="#user10" class="rank-link">
+              <div class="rank-item rank-normal"><span class="star-rank">10</span> <img
+                  src="https://i.pravatar.cc/150?u=10" class="rank-img"> <span class="rank-name">User_Ten</span> <i
+                  class="fa-solid fa-star mature-star"></i></div>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <canvas id="echo-cursor-canvas"></canvas>
+    <div id="shop-promo-popup">✨ FRESH DROP DETECTED ✨</div>
+
+    <section id="shopping-viewport">
+      <div id="shopping-container">
+        <h2 class="shop-title">SHOP!NG</h2>
+        <div id="shop-categories" class="hidden-menu">
+          <a href="#">Comics</a>
+          <a href="#">Fashion</a>
+          <a href="#">News</a>
+          <a href="#">Books</a>
+          <a href="#">Anime</a>
+          <a href="#">Travel</a>
+          <div>
+          </div>
+          <div class="shop-grid">
+            <div class="shop-card">
+              <div class="product-visual">👕</div>
+              <h3>Fresh Ent Jersey</h3>
+              <p class="price">$45.00</p>
+              <button class="shopping-btn">SHOP!NG</button>
+            </div>
+            <div class="shop-card">
+              <div class="product-visual">🧢</div>
+              <h3>Neon Snapback</h3>
+              <p class="price">$30.00</p>
+              <button class="shopping-btn">SHOP!NG</button>
+            </div>
+            <div class="shop-card">
+              <div class="product-visual">🎟️</div>
+              <h3>All-Access Pass</h3>
+              <p class="price">$120.00</p>
+              <button class="shopping-btn">SHOP!NG</button>
+            </div>
+          </div>
+    </section>
+    <div id="shop-header-ui">
+      <div class="cart-wrapper">
+        <span class="cart-label">FRESH CART</span>
+        <div id="cart-counter">0</div>
+      </div>
+    </div>
+
+    <style>
+      :root {
+        --fresh-neon: #39ff14;
+        --fresh-cyan: #00f3ff;
+        --fresh-purple: #7000ff;
+        --box-width: 80%;
+        --box-height: 300px;
+      }
+
+      /* Floating UI */
+      #shop-header-ui {
+        position: relative;
+        top: 30px;
+        right: 30px;
+        z-index: 2000;
+        width: 100%;
+      }
+
+      .cart-wrapper {
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px solid var(--fresh-cyan);
+        padding: 10px 10px;
+        border-radius: 00px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+      }
+
+      #cart-counter {
+        background: var(--fresh-neon);
+        color: #000;
+        font-weight: 900;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      /* 3D Cursor & Promo */
+      #echo-cursor-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1500;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      #shop-promo-popup {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1600;
+        font-weight: 900;
+        font-size: 1.2rem;
+        color: white;
+        text-shadow: 0 0 15px var(--fresh-cyan);
+        display: none;
+        white-space: nowrap;
+      }
+
+      /* Shopping Section Scroll Logic */
+      #shopping-viewport {
+        height: 300vh;
+        /* Controlled scroll length */
+        background: #000;
+        position: relative;
+      }
+
+      #shopping-container {
+        position: sticky;
+        top: 5vh;
+        width: var(--box-width);
+        height: var(--box-height);
+        margin: 0 auto;
+        background: #0a0a0a;
+        border: 4px solid var(--fresh-neon);
+        border-radius: 0px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        box-shadow: 0 0 50px rgba(57, 255, 20, 0.1);
+        transition: width 0.1s linear, height 0.1s linear, border-radius 0.3s;
+      }
+
+      .shop-title {
+        text-align: center;
+        font-size: clamp(3rem, 10vw, 6rem);
+        margin: 0px;
+        color: #fff;
+        letter-spacing: 10px;
+        text-transform: uppercase;
+        font-style: italic;
+      }
+
+      .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 5vw;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
+      /* Modern Shop Cards */
+      .shop-card {
+        background: #111;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid #222;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .shop-card:hover {
+        transform: scale(1.05);
+        border-color: var(--fresh-cyan);
+      }
+
+      .product-visual {
+        font-size: 4rem;
+        margin-bottom: 20px;
+      }
+
+      .shopping-btn {
+        background: var(--fresh-neon);
+        border: none;
+        padding: 15px 30px;
+        font-weight: 900;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 15px;
+        width: 100%;
+        transition: 0.3s;
+      }
+
+      .shopping-btn:hover {
+        background: var(--fresh-cyan);
+        box-shadow: 0 0 20px var(--fresh-cyan);
+      }
+
+      .splatter-dot {
+        position: fixed;
+        pointer-events: none;
+        border-radius: 50%;
+        z-index: 2100;
+      }
+    </style>
+
+    <script>
+      // --- PART 1: SMOOTH SCROLL & DYNAMIC BOX ---
+      window.addEventListener('scroll', () => {
+        const viewport = document.getElementById('shopping-viewport');
+        const box = document.getElementById('shopping-container');
+        const grid = document.querySelector('.shop-grid');
+        const canvas = document.getElementById('echo-cursor-canvas');
+
+        const rect = viewport.getBoundingClientRect();
+        // Calculate progress (0 to 1) based on section scroll
+        let progress = Math.min(Math.max(-rect.top / (window.innerHeight * 1.5), 0), 1);
+
+        // Update box dimensions
+        // Width goes from 80% to 100%, Height from 300px to 80vh
+        const currentWidth = 80 + (20 * progress);
+        const currentHeight = 300 + ((window.innerHeight * 0.8 - 100) * progress);
+
+        box.style.setProperty('--box-width', `${currentWidth}%`);
+        box.style.setProperty('--box-height', `${currentHeight}px`);
+
+        if (progress > 0.9) {
+          box.style.borderRadius = "10px";
+        } else {
+          box.style.borderRadius = "10px";
+        }
+
+        // Show items and cursor effect when section is active
+        grid.style.opacity = progress > 0.3 ? "1" : "0";
+        canvas.style.opacity = (rect.top < window.innerHeight && rect.bottom > 0) ? "1" : "0";
+      });
+
+      // --- PART 2: THE "SLUG" ECHO CURSOR ---
+      const canvas = document.getElementById('echo-cursor-canvas');
+      const ctx = canvas.getContext('2d');
+      const promo = document.getElementById('shop-promo-popup');
+
+      let mouse = { x: -100, y: -100 };
+      let slugPos = { x: 0, y: 0 }; // The delayed position
+      let angle = 0;
+
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+
+      function drawEchoCursor() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Slow slug movement (Lerping)
+        slugPos.x += (mouse.x - slugPos.x) * 0.05; // 0.05 makes it slow and "heavy"
+        slugPos.y += (mouse.y - slugPos.y) * 0.05;
+
+        const distance = Math.hypot(mouse.x - slugPos.x, mouse.y - slugPos.y);
+        const isInteracting = distance < 10;
+
+        angle += 0.03;
+
+        // Draw 5 Echo Rings
+        for (let i = 0; i < 5; i++) {
+          ctx.beginPath();
+          const radius = 50 + (i * 15) + Math.sin(angle + i) * 10;
+          const hue = (angle * 100 + (i * 30)) % 360;
+
+          ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${0.8 - i * 0.15})`;
+          ctx.lineWidth = 3;
+
+          // Random shape morphing
+          for (let a = 0; a < Math.PI * 2; a += 0.5) {
+            const x = slugPos.x + Math.cos(a + angle) * radius;
+            const y = slugPos.y + Math.sin(a + angle) * radius;
+            if (a === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.stroke();
+        }
+
+        // Promo Animation
+        if (isInteracting && canvas.style.opacity === "1") {
+          promo.style.display = 'block';
+          promo.style.left = (slugPos.x - 100) + 'px';
+          promo.style.top = (slugPos.y - 120) + 'px';
+          promo.style.transform = `scale(${1 + Math.sin(angle * 5) * 0.1})`;
+        } else {
+          promo.style.display = 'none';
+        }
+
+        requestAnimationFrame(drawEchoCursor);
+      }
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+      window.dispatchEvent(new Event('resize'));
+      drawEchoCursor();
+
+      // --- PART 3: CART & SPLATTER ---
+      let cartCount = 0;
+      document.querySelectorAll('.shopping-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          cartCount++;
+          document.getElementById('cart-counter').innerText = cartCount;
+          triggerSplatter(e.clientX, e.clientY);
+        });
+      });
+
+      function triggerSplatter(x, y) {
+        const colors = ['#39ff14', '#00f3ff', '#7000ff'];
+        for (let i = 0; i < 25; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'splatter-dot';
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          const size = Math.random() * 15 + 5;
+
+          Object.assign(dot.style, {
+            width: size + 'px', height: size + 'px',
+            background: color, left: x + 'px', top: y + 'px',
+            boxShadow: `0 0 15px ${color}`
+          });
+
+          document.body.appendChild(dot);
+
+          const angle = Math.random() * Math.PI * 2;
+          const velocity = Math.random() * 200 + 100;
+          const destX = Math.cos(angle) * velocity;
+          const destY = Math.sin(angle) * velocity;
+
+          dot.animate([
+            { transform: 'translate(0,0) scale(1)', opacity: 1 },
+            { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
+          ], { duration: 8800, easing: 'cubic-bezier(0.1, 1, 0.1, 1)' }).onfinish = () => dot.remove();
+        }
+      }
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

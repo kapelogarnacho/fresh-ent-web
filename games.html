@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresh Arcade // Simulations</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Page Specific Styles */
+    body.games-page {
+      background: #090009;
+    }
+
+    .arcade-header {
+      padding: 30px;
+      text-align: center;
+      border-bottom: 2px solid var(--fresh-pink);
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .sim-card {
+      background: #111;
+      border: 2px solid var(--fresh-cyan);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .sim-card:hover {
+      border-color: var(--fresh-yellow);
+      box-shadow: 0 0 30px var(--fresh-yellow);
+      transform: scale(1.02);
+    }
+
+    .sim-viewport {
+      height: 300px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Placeholder for sim visual */
+    .sim-placeholder-anim {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #000, #111);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--fresh-cyan);
+    }
+
+    .sim-info {
+      padding: 20px;
+    }
+
+    .sim-info h3 {
+      color: var(--fresh-pink);
+      margin-top: 0;
+    }
+
+    .play-sim-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--fresh-cyan);
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .play-sim-btn:hover {
+      background: var(--fresh-pink);
+      color: white;
+    }
+  </style>
+</head>
+
+<body class="games-page">
+  <div class="cursor-follower"></div>
+  <header class="arcade-header">
+    <h1><span class="fresh">FRESH</span> <span style="color:var(--fresh-pink)">ARCADE SIMS</span></h1>
+    <a href="index.html" style="color:var(--fresh-cyan); text-decoration:none;">← Exit Arcade</a>
+  </header>
+
+  <div class="sim-grid">
+    <div class="sim-card">
+      <div class="sim-viewport">
+        <div class="sim-placeholder-anim"
+          style="background-image: url('https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif'); background-size: cover; opacity: 0.7;">
+          <span>PARTICLE SYSTEM LOADING...</span>
+        </div>
+      </div>
+      <div class="sim-info">
+        <h3>NEON FLUID DYNAMICS</h3>
+        <p>Interactive particle simulation. Control the flow with your cursor.</p>
+        <button class="play-sim-btn">INITIALIZE SIMULATION</button>
+      </div>
+    </div>
+
+    <div class="sim-card" style="border-color: var(--fresh-pink);">
+      <div class="sim-viewport">
+        <div class="sim-placeholder-anim"
+          style="background-image: url('https://media.giphy.com/media/xT9Igk6c25Gq2hI9nW/giphy.gif'); background-size: cover; opacity: 0.7;">
+          <span style="color:var(--fresh-pink)">GRAVITY WELL LOADING...</span>
+        </div>
+      </div>
+      <div class="sim-info">
+        <h3>ORBITAL MECHANICS</h3>
+        <p>Create dense gravity wells and watch neon bodies orbit and collide.</p>
+        <button class="play-sim-btn" style="background: var(--fresh-pink);">INITIALIZE SIMULATION</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const cursor = document.querySelector('.cursor-follower');
+    document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+  </script>
+</body>
+
+</html>
