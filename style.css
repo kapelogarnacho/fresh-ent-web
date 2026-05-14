@@ -1107,7 +1107,7 @@ video {
   margin-top: 20px;
   padding: 0 20px 50px 20px;
   align-items: stretch;
-  height: 500px;
+  min-height: 500px;
 }
 
 /* STORIES (Full fill, side glow style like Events) */
