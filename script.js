@@ -31,14 +31,26 @@ async function testDatabaseWrite() {
   } catch (error) {
     console.error("ERROR writing to database:", error);
   }
-}--- 1. USER REGISTRATION (VAULT KEY LOGIC) ---
-function registerUser(event) {
-  event.preventDefault(); // Handles Enter Key Natively via form submit
+async function registerUser(event) {
+  event.preventDefault();
   const username = document.getElementById('username-signup').value;
+  
   if (username) {
-    localStorage.setItem('freshUser', username);
-    alert('WELCOME TO THE CLUB, ' + username + '. Your Vault Key is set to your Username.');
-    document.getElementById('joinForm').reset();
+    try {
+      // Save to Database
+      await setDoc(doc(db, "users", username), {
+        username: username,
+        joinedAt: serverTimestamp(),
+        points: 0,
+        rank: "ROOKIE"
+      });
+      
+      localStorage.setItem('freshUser', username);
+      alert('WELCOME TO THE CLUB, ' + username + '. Data synced to Cloud.');
+      document.getElementById('joinForm').reset();
+    } catch (e) {
+      console.error("Error adding user: ", e);
+    }
   }
 }
 
