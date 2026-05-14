@@ -17,7 +17,26 @@ function registerUser(event) {
     document.getElementById('joinForm').reset();
   }
 }
+// Function to test the database connection
+async function testDatabaseWrite() {
+  try {
+    const testRef = doc(db, "connection_tests", "test_id_001");
+    await setDoc(testRef, {
+      status: "Successful",
+      timestamp: new Date().toISOString(),
+      message: "Fresh Entertainment is officially connected to Firestore!"
+    });
+    console.log("SUCCESS: Test data written to Firestore!");
+    alert("Database connection verified!");
+  } catch (error) {
+    console.error("ERROR writing to database:", error);
+  }
+}
 
+// Run the test after a short delay to ensure Firebase is ready
+setTimeout(() => {
+  testDatabaseWrite();
+}, 2000);
 // --- USER ICON SCROLL ---
 <div id="user-profile-modal" class="profile-modal">
   <div class="profile-card">
