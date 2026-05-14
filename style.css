@@ -139,8 +139,8 @@ header {
 }
 
 .profile-header img {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 3px solid #ffff00;
   margin-bottom: 10px;
@@ -194,7 +194,7 @@ header {
 }
 
 .close-profile {
-  position: absolute;
+  position: relative;
   top: 15px;
   right: 20px;
   font-size: 2rem;
