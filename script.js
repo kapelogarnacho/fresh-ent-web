@@ -1,4 +1,8 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// --- 1. FIREBASE INITIALIZATION ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyA9Bb3ySLVKdlsrMmJD_iGFw2cbCplxFbI",
   authDomain: "fresh-entertainment.firebaseapp.com",
@@ -7,16 +11,12 @@ const firebaseConfig = {
   messagingSenderId: "394515293409",
   appId: "1:394515293409:web:9a8d47e04e515b660a83a0",
   measurementId: "G-5KSB33VJR6"
-};// --- 1. USER REGISTRATION (VAULT KEY LOGIC) ---
-function registerUser(event) {
-  event.preventDefault(); // Handles Enter Key Natively via form submit
-  const username = document.getElementById('username-signup').value;
-  if (username) {
-    localStorage.setItem('freshUser', username);
-    alert('WELCOME TO THE CLUB, ' + username + '. Your Vault Key is set to your Username.');
-    document.getElementById('joinForm').reset();
-  }
-}
+};
+
+// Start the engine
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 // Function to test the database connection
 async function testDatabaseWrite() {
   try {
@@ -30,6 +30,15 @@ async function testDatabaseWrite() {
     alert("Database connection verified!");
   } catch (error) {
     console.error("ERROR writing to database:", error);
+  }
+}--- 1. USER REGISTRATION (VAULT KEY LOGIC) ---
+function registerUser(event) {
+  event.preventDefault(); // Handles Enter Key Natively via form submit
+  const username = document.getElementById('username-signup').value;
+  if (username) {
+    localStorage.setItem('freshUser', username);
+    alert('WELCOME TO THE CLUB, ' + username + '. Your Vault Key is set to your Username.');
+    document.getElementById('joinForm').reset();
   }
 }
 
