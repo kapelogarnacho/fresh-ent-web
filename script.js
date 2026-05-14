@@ -1,3 +1,37 @@
+// 1. Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const vaultInput = document.querySelector('.vault-input');
+const saveBtn = document.querySelector('.save-btn'); // Create a button for this!
+
+// 2. SAVE to Database
+saveBtn.addEventListener('click', () => {
+    const textToSave = vaultInput.value;
+
+    // We create a "collection" called 'userMessages'
+    db.collection("userMessages").add({
+        content: textToSave,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        alert("Saved to Cloud Database!");
+    })
+    .catch((error) => {
+        console.error("Error adding document: ", error);
+    });
+});
+
+// 3. LOAD from Database (automatically shows on refresh)
+window.addEventListener('load', () => {
+    db.collection("userMessages").orderBy("timestamp", "desc").limit(1).get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // Put the most recent saved text back into the input
+            vaultInput.value = doc.data().content;
+        });
+    });
+});
 let progress = Math.min(Math.max(-rect.top / (window.innerHeight * 2), 0), 1);
 // --- 1. NAVIGATION & UI ---
 function scrollToRegister() {
