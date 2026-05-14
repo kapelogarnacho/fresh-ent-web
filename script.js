@@ -387,8 +387,8 @@ document.head.appendChild(styleSheet);
 function scrollEvents(direction) {
   const slider = document.getElementById('event-slider');
   slider.scrollBy({ left: direction * 150, behavior: 'smooth' }); // Adjusted for shorter box
+    let progress = Math.min(Math.max(-rect.top / (window.innerHeight * 2), 0), 1);
 }
-
 // Post Review
 function postReview() {
   const text = document.getElementById('rev-text').value;
