@@ -649,7 +649,48 @@
       }
     </style>
 
-    <script>
+  
+      <!-- Load Firebase SDKs as Modules -->
+<script type="module">
+  // 1. Import the specific functions we need from the Firebase CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 2. Your specific Firebase configuration (Paste your block here)
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "fresh-entertainment.firebaseapp.com",
+    projectId: "fresh-entertainment",
+    storageBucket: "fresh-entertainment.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  // 3. Initialize the Firebase App
+  const app = initializeApp(firebaseConfig);
+
+  // 4. Initialize the Services
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // 5. Make these variables globally accessible for your other game scripts
+  window.auth = auth;
+  window.db = db;
+
+  console.log("Fresh Entertainment Database is now ONLINE.");
+
+  // 6. Listen for Auth State (Check if a user is already logged in)
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("User is signed in:", user.email);
+      // Here you could update the UI to show the user's name
+    } else {
+      console.log("No user is signed in.");
+    }
+  });
+</script>
+            <script>
       // --- PART 1: SMOOTH SCROLL & DYNAMIC BOX ---
       window.addEventListener('scroll', () => {
         const viewport = document.getElementById('shopping-viewport');
