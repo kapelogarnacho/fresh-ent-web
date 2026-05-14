@@ -1,4 +1,13 @@
-// --- 1. USER REGISTRATION (VAULT KEY LOGIC) ---
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyA9Bb3ySLVKdlsrMmJD_iGFw2cbCplxFbI",
+  authDomain: "fresh-entertainment.firebaseapp.com",
+  projectId: "fresh-entertainment",
+  storageBucket: "fresh-entertainment.firebasestorage.app",
+  messagingSenderId: "394515293409",
+  appId: "1:394515293409:web:9a8d47e04e515b660a83a0",
+  measurementId: "G-5KSB33VJR6"
+};// --- 1. USER REGISTRATION (VAULT KEY LOGIC) ---
 function registerUser(event) {
   event.preventDefault(); // Handles Enter Key Natively via form submit
   const username = document.getElementById('username-signup').value;
