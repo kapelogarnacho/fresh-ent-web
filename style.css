@@ -954,6 +954,7 @@ video {
   border-radius: 20px;
   position: relative;
   overflow: hidden;
+  will-change: background-position;
   /* Updated gradient for better flow */
   background:
     repeating-linear-gradient(90deg, #000 0, #000 5%, #111 10%),
