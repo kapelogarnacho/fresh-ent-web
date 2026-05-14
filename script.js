@@ -1,3 +1,79 @@
+let progress = Math.min(Math.max(-rect.top / (window.innerHeight * 2), 0), 1);
+// --- 1. NAVIGATION & UI ---
+function scrollToRegister() {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleProfile() {
+    const modal = document.getElementById('user-profile-modal');
+    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function toggleParty() {
+    const container = document.getElementById('party-effects-container');
+    document.body.classList.toggle('party-mode-active');
+    if (document.body.classList.contains('party-mode-active')) {
+        container.innerHTML = '<div class="confetti"></div>'; // Add your CSS animations here
+        console.log("Party Mode: ON");
+    } else {
+        container.innerHTML = '';
+    }
+}
+
+// --- 2. CHAT & REVIEWS ---
+function handleEnter(event, callback) {
+    if (event.key === 'Enter') {
+        callback();
+    }
+}
+
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const display = document.getElementById('chat-display');
+    if (input.value.trim() !== "") {
+        const msg = document.createElement('p');
+        msg.innerHTML = `<strong>You:</strong> ${input.value}`;
+        display.appendChild(msg);
+        input.value = "";
+        display.scrollTop = display.scrollHeight;
+    }
+}
+
+function postReview() {
+    const text = document.getElementById('rev-text');
+    const display = document.getElementById('reviews-display');
+    if (text.value.trim() !== "") {
+        const review = document.createElement('div');
+        review.className = 'review-card';
+        review.innerHTML = `<strong style="color:#00FFFF;">User_${Math.floor(Math.random()*100)}:</strong><p>${text.value}</p>`;
+        display.prepend(review);
+        text.value = "";
+    }
+}
+
+// --- 3. GAMES ---
+let score = 0;
+function increaseScore() {
+    score++;
+    document.getElementById('score').innerText = score;
+}
+
+// --- 4. REGISTRATION ---
+function registerUser(event) {
+    event.preventDefault();
+    const username = document.getElementById('username-signup').value;
+    alert(`Welcome to the Club, ${username}! Your vault key is ready.`);
+    // Logic to save to Firebase 'db' would go here
+}
+
+// --- 5. MUSIC PLAYER ---
+function playMusic(input) {
+    const playerArea = document.getElementById('music-player-area');
+    if (input.files && input.files[0]) {
+        const url = URL.createObjectURL(input.files[0]);
+        playerArea.innerHTML = `<audio controls autoplay src="${url}" style="width:100%; margin-top:10px;"></audio>`;
+    }
+}
 // --- 1. FIREBASE INITIALIZATION ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
