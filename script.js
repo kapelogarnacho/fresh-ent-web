@@ -170,16 +170,18 @@ function openSection(sectionId) {
 // --- 6. INTERACTIVE FEATURES ---
 
 // Chat
-function sendMessage() {
+async function sendMessage() {
   const input = document.getElementById('chat-input');
-  const display = document.getElementById('chat-display');
+  const username = localStorage.getItem('freshUser') || "Guest";
+  
   if (input.value.trim() !== "") {
-    const msg = document.createElement('div');
-    msg.className = 'chat-msg';
-    msg.innerHTML = `<strong style="color:cyan">Guest:</strong> ${input.value}`;
-    display.appendChild(msg);
+    await addDoc(collection(db, "global_chat"), {
+      user: username,
+      text: input.value,
+      time: serverTimestamp()
+    });
     input.value = '';
-    display.scrollTop = display.scrollHeight;
+    // Note: You'll need a "listener" to display messages in real-time
   }
 }
 
