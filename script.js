@@ -188,8 +188,7 @@ setTimeout(() => {
       <button onclick="likeUser()">Give Like ❤️</button>
     </div>
     <div class="profile-bio">
-      <h3>About Me</h3>
-      <p id="p-bio" contenteditable="false">Just here for the Fresh vibes. Music lover and gamer.</p>
+      
     </div>
   </div>
 </div>
