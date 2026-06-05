@@ -1,10 +1,10 @@
 l/* --- General Reset & Body --- */
 body {
   margin: 0;
-  font-family: 'Times New Roman', Times, serif;
-  overflow-x: hidden;
+  font-family: 'Times New Roman', Times, serif;
   color: white;
-  height: 100vh;
+  height: 100%; 
+width:700;
   background-color: #000;
   animation: bg-pulse 10s infinite alternate;
 }
