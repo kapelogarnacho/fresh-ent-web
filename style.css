@@ -1,4 +1,4 @@
-/* --- General Reset & Body --- */
+l/* --- General Reset & Body --- */
 body {
   margin: 0;
   font-family: 'Times New Roman', Times, serif;
@@ -130,7 +130,7 @@ header {
   background: #0a0a0a;
   border: 2px solid #00f3ff;
   width: 90%;
-  max-width: 400px;
+  max-width: 100px;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
@@ -177,7 +177,7 @@ header {
 }
 
 .profile-actions button {
-  background: transparent;
+  background:red;
   border: 1px solid #555;
   color: white;
   padding: 8px 15px;
