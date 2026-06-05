@@ -187,7 +187,7 @@ setTimeout(() => {
       <button onclick="addFriend()">Add Friend</button>
       <button onclick="likeUser()">Give Like ❤️</button>
     </div>
-    <div class="profile-bio">
+   
       
     </div>
   </div>
