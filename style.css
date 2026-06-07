@@ -4,7 +4,8 @@ body {
   font-family: 'Times New Roman', Times, serif;
   color: white;
   height: 100%; 
-width:700;
+  max-width:100%;
+  width:100%;
   background-color: #000;
   animation: bg-pulse 10s infinite alternate;
 padding:0;
