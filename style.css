@@ -1,4 +1,4 @@
-īl/* --- General Reset & Body --- */
+noīl/* --- General Reset & Body --- */
 body {
   margin: 0;
   font-family: 'Times New Roman', Times, serif;
@@ -207,8 +207,8 @@ header {
 /* --- MODERN PARTY SWITCH --- */
 .party-switch-container {
   position: fixed;
-  top: 25px;
-  right: 100px;
+  top: 10px;
+  right: 10px;
   z-index: 10000;
 }
 
