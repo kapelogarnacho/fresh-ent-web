@@ -1318,3 +1318,126 @@ video {
   justify-content: center;
   text-align: center;
 }
+/* MOBILE RESPONSIVE FIXES */
+@media (max-width: 768px) {
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  header {
+    font-size: 2rem;
+    padding: 8px;
+  }
+
+  .container {
+    margin: 15px auto;
+    padding: 0 10px;
+  }
+
+  .main-grid {
+    gap: 10px;
+  }
+
+  .form-container,
+  .image-section,
+  .system-links {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
+
+  nav {
+    gap: 10px;
+    padding: 10px 5px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+  }
+
+  .games-grid {
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .ttt-card,
+  .jump-card,
+  .vault-wrapper {
+    min-width: auto;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  #ttt-board {
+    width: 200px;
+    height: 200px;
+  }
+
+  .content-breach-section {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+
+  .about-left {
+    border-right: none;
+    border-bottom: 2px solid #333;
+    padding-right: 0;
+  }
+
+  .tiktok-vault {
+    height: 350px;
+    flex: 1 1 100%;
+  }
+
+  .modern-split-section {
+    flex-direction: column;
+  }
+
+  .mirror-tubes,
+  .events-container {
+    flex: 1 1 100%;
+  }
+
+  .social-vip-grid {
+    flex-direction: column;
+  }
+
+  .stories-vault,
+  .vip-leaderboard {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  header {
+    font-size: 1.5rem;
+    padding: 5px;
+  }
+
+  .cyber-switch {
+    padding: 5px 8px;
+    font-size: 0.65rem;
+  }
+
+  .form-container {
+    padding: 15px 10px;
+  }
+
+  input, textarea {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .chat-box {
+    height: 200px;
+  }
+
+  #game-container {
+    height: 150px;
+  }
+}
