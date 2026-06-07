@@ -384,7 +384,8 @@ nav a:hover {
 .form-container,
 .image-section,
 .system-links {
-  flex: 2;
+  flex:1;
+min-width:280px;
   margin: 0;
 }
 
