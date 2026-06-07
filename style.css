@@ -605,8 +605,8 @@ textarea:focus {
 /* --- THE VAULT STYLES --- */
 .vault-wrapper {
   margin: 0;
-  min-width: 400px;
-  flex: 1.5;
+  min-width:280px;
+  flex: 1;
   background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
   background-size: 400%;
   padding: 5px;
