@@ -485,7 +485,7 @@ width:100%;
   padding: 40px;
   border-radius: 15px;
   flex: 1;
-  margin: 0 0 20px 10;
+  margin:0;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
