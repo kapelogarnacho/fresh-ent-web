@@ -1,3 +1,44 @@
+// The Engine: Automating the User Upload Pipeline
+async function uploadUserAsset(file, userId, assetName) {
+  try {
+    // 1. Generate a unique digital fingerprint for the file to prevent overwriting
+    const fileExtension = file.name.split('.').pop();
+    const filePath = `${userId}-${Date.now()}.${fileExtension}`;
+
+    // 2. Push the heavy asset into the Supabase Storage Vault
+    const { data: uploadData, error: uploadError } = await supabase
+      .storage
+      .from('fresh-ent-media') // The name of your bucket
+      .upload(filePath, file);
+
+    if (uploadError) throw new Error("Storage execution failed: " + uploadError.message);
+
+    // 3. Extract the public URL (The Map)
+    const { data: urlData } = supabase
+      .storage
+      .from('fresh-ent-media')
+      .getPublicUrl(filePath);
+
+    // 4. Record the transaction in your Database Ledger
+    const { data: insertData, error: insertError } = await supabase
+      .from('content_library') // The name of your database table
+      .insert([
+        { 
+          creator_id: userId, 
+          title: assetName, 
+          media_url: urlData.publicUrl 
+        }
+      ]);
+
+    if (insertError) throw new Error("Ledger update failed: " + insertError.message);
+
+    console.log("Asset successfully acquired and indexed.");
+    return insertData;
+
+  } catch (error) {
+    console.error("System friction detected:", error.message);
+  }
+}
 // 1. Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
